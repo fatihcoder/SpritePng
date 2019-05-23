@@ -17,11 +17,16 @@ public class SpritePngEditor : Editor {
 #endif
 public class SpritePng : MonoBehaviour {
 
+   
+
 
     [Range(1,8)]
     public int QualityMultiply = 1;
     Texture2D Screenshot() {
         Camera cameram = GetComponent<Camera>();
+        CameraClearFlags flags = cameram.clearFlags;
+        cameram.clearFlags = CameraClearFlags.Nothing;
+     
 
         int resWidth = cameram.pixelWidth*QualityMultiply;
         int resHeight = cameram.pixelHeight*QualityMultiply;
@@ -36,6 +41,7 @@ public class SpritePng : MonoBehaviour {
         camera.targetTexture = null;
         RenderTexture.active = null; // JC: added to avoid errors
         Destroy(rt);
+        cameram.clearFlags = flags;
         return screenShot;
      }
  
